@@ -1,0 +1,3 @@
+If you're having problems with this contact sleepingrblxz on Discord!
+To run, get python and use python DarkLord.py, it will automatically install resources to run.
+python min 3.2
