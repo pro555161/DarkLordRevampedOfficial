@@ -101,7 +101,7 @@ def send_webhook_message():
         wavy_message("[ERROR] Invalid webhook URL.", Color.red, Color.red)
         return
     message = input("Enter the message: ")
-    wavy_message("Sending message...", Color.cyan, Color.blue)
+    gradient_print("Sending message...", start_color=Color.cyan, end_color=Color.blue)
     try:
         requests.post(webhook, json={"content": message})
         wavy_message(f"Message sent: {message}", Color.green, Color.light_green)
@@ -127,7 +127,7 @@ def spam_webhook():
     for i in range(1, amount + 1):
         try:
             requests.post(webhook, json={"content": message})
-            wavy_message(f"Sent message {i}/{amount}", Color.green, Color.light_green)
+            gradient_print("Sending message...", start_color=Color.cyan, end_color=Color.blue)
         except Exception as e:
             wavy_message(f"Error: {e}", Color.red, Color.red)
             break
@@ -299,3 +299,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
