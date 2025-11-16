@@ -104,14 +104,14 @@ def send_webhook_message():
     gradient_print("Sending message...", start_color=Color.cyan, end_color=Color.blue)
     try:
         requests.post(webhook, json={"content": message})
-        wavy_message(f"Message sent: {message}", Color.green, Color.light_green)
+        gradient_print("Sending message...", start_color=Color.green_yellow, end_color=Color.blue)
         logs = read_json(FILES["webhook_spammer_history"])
         logs.append({"webhook": webhook, "message": message, "timestamp": str(datetime.utcnow())})
         write_json(FILES["webhook_spammer_history"], logs)
     except Exception as e:
         wavy_message(f"Error: {e}", Color.red, Color.red)
     input("\nPress Enter to continue...")
-
+    
 def spam_webhook():
     webhook = input("\nEnter webhook URL: ")
     if not validate_webhook(webhook):
@@ -127,7 +127,7 @@ def spam_webhook():
     for i in range(1, amount + 1):
         try:
             requests.post(webhook, json={"content": message})
-            gradient_print("Sending message...", start_color=Color.cyan, end_color=Color.blue)
+            gradient_print("Sent.", start_color=Color.cyan, end_color=Color.blue)
         except Exception as e:
             wavy_message(f"Error: {e}", Color.red, Color.red)
             break
@@ -299,4 +299,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
