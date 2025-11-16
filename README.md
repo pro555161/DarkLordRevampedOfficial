@@ -2,7 +2,7 @@
 
 **DarkLord Remastered** is a Discord multitool designed for advanced webhook and token-related operations. It provides multiple utilities for managing, modifying, and testing Discord webhooks. This project is fully open source.
 
-<video src="[PASTE_YOUR_VIDEO_URL_HERE](https://www.youtube.com/watch?v=G1WrZ7jzqP8)" controls width="100%"></video>
+<video src="[https://www.youtube.com/watch?v=G1WrZ7jzqP8](https://www.youtube.com/watch?v=G1WrZ7jzqP8)" controls width="100%"></video>
 
 ---
 
