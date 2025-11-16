@@ -3,6 +3,7 @@
 **DarkLord Remastered** is a Discord multitool designed for advanced webhook and token-related operations. It provides multiple utilities for managing, modifying, and testing Discord webhooks. This project is fully open source.
 
 https://www.youtube.com/watch?v=G1WrZ7jzqP8
+And by the way for the DarkLordGUI it is not open source you can decode it. It is made using pyinstaller with an ico.
 
 ---
 
