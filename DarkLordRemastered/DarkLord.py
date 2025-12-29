@@ -14,9 +14,6 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import warnings
 warnings.filterwarnings("ignore")
 
-# ----------------------
-# File Setup
-# ----------------------
 FILES_DIR = os.path.join(os.getcwd(), "files")
 if not os.path.exists(FILES_DIR):
     os.makedirs(FILES_DIR)
@@ -30,56 +27,43 @@ FILES = {
     "webhook_delete_history": os.path.join(FILES_DIR, "webhook_delete_history.json"),
 }
 
-# Create files if missing
 for path in FILES.values():
     if not os.path.exists(path):
         with open(path, "w", encoding="utf-8") as f:
-            f.write("[]")  # empty JSON array
+            f.write("[]")
 
-# ----------------------
-# Terminal helpers
-# ----------------------
 def clear_console():
-    os.system('cls' if os.name == 'nt' else 'clear')
+    os.system("cls" if os.name == "nt" else "clear")
 
 def init():
     os.system("title DarkLord Remastered - Webhook Tool")
 
-# ----------------------
-# Banner / Menu
-# ----------------------
 def banner():
     clear_console()
     ascii_art = [
-        "                   _____     ______     ______     __  __        __         ______     ______     _____",
-        "                 /\\  __-.  /\\  __ \\   /\\  == \\   /\\ \\/ /       /\\ \\       /\\  __ \\   /\\  == \\   /\\  __-.",
-        "                 \\ \\ \\/\\ \\ \\ \\  __ \\  \\ \\  __<   \\ \\  _\"-.     \\ \\ \\____  \\ \\ \\/\\ \\  \\ \\  __<   \\ \\ \\/\\ \\",
-        "                  \\ \\____-  \\ \\_\\ \\_\\  \\ \\_\\ \\_\\  \\ \\_\\ \\_\\     \\ \\_____\\  \\ \\_____\\  \\ \\_\\ \\_\\  \\ \\____-",
-        "                   \\/____/   \\/_/\\/_/   \\/_/\\/_/   \\/_/\\/_/      \\/_____/   \\/_____/   \\/_/\\/_/   \\/____/"
+        " _____ ______ ______ __ __ __ ______ ______ _____ ",
+        "/\\  __-. /\\  __ \\ /\\  == \\ /\\ \\/ / /\\ \\ /\\  __ \\ /\\  == \\ /\\  __-. ",
+        "\\ \\ \\/\\ \\ \\ \\  __ \\ \\ \\  __< \\ \\  _\\ -. \\ \\ \\____ \\ \\ \\/\\ \\ \\ \\  __< \\ \\ \\/\\ \\ ",
+        " \\ \\____- \\ \\_\\ \\_\\ \\ \\_\\ \\_\\ \\ \\_\\ \\_\\ \\ \\_____\\ \\ \\_____\\ \\ \\_\\ \\_\\ \\ \\____- ",
+        "  \\/____/  \\/_/\\/_/  \\/_/\\/_/  \\/_/\\/_/  \\/_____/  \\/_____/  \\/_/\\/_/  \\/____/ "
     ]
     for line in ascii_art:
         gradient_print(line, start_color=Color.purple, end_color=Color.medium_purple)
-
+    
     menu = [
-        "                   ┌───[1] Webhook Sender──┐  ┌───[2] Webhook Spammer──┐  ┌──[3] Webhook Deleter───┐",
-        "                   └───────────────────────┘  └────────────────────────┘  └────────────────────────┘",
-        "                     ┌───[4] Webhook Info──┐  ┌───[5] Token Generator──┐  ┌───[6] Rename Webhook──┐",
-        "                     └─────────────────────┘  └────────────────────────┘  └───────────────────────┘",
-        "                                     ┌──[7] Edit Webhook Image──┐  ┌───[0] Exit──┐",
-        "                                     └──────────────────────────┘  └─────────────┘"
+        " ┌───[1] Webhook Sender──┐ ┌───[2] Webhook Spammer──┐ ┌──[3] Webhook Deleter───┐ ",
+        " └───────────────────────┘ └────────────────────────┘ └────────────────────────┘ ",
+        " ┌───[4] Webhook Info──┐ ┌───[5] Token Generator──┐ ┌───[6] Rename Webhook──┐ ",
+        " └─────────────────────┘ └────────────────────────┘ └───────────────────────┘ ",
+        " ┌──[7] Edit Webhook Image──┐ ┌───[0] Exit──┐ ",
+        " └──────────────────────────┘ └─────────────┘ "
     ]
     for line in menu:
         gradient_print(line, start_color=Color.cyan, end_color=Color.blue)
 
-# ----------------------
-# Wavy Messages
-# ----------------------
 def wavy_message(text, color_start=Color.green, color_end=Color.cyan):
     gradient_scroll(text, start_color=color_start, end_color=color_end, delay=0.045, times=2)
 
-# ----------------------
-# File Helpers
-# ----------------------
 def read_json(path):
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
@@ -167,10 +151,10 @@ def webhook_info():
         if response.status_code == 200:
             data = response.json()
             wavy_message("Webhook Information:", Color.cyan, Color.blue)
-            wavy_message(f"Name       : {data.get('name')}", Color.green, Color.light_green)
-            wavy_message(f"ID         : {data.get('id')}", Color.green, Color.light_green)
+            wavy_message(f"Name : {data.get('name')}", Color.green, Color.light_green)
+            wavy_message(f"ID : {data.get('id')}", Color.green, Color.light_green)
             wavy_message(f"Channel ID : {data.get('channel_id')}", Color.green, Color.light_green)
-            wavy_message(f"Guild ID   : {data.get('guild_id')}", Color.green, Color.light_green)
+            wavy_message(f"Guild ID : {data.get('guild_id')}", Color.green, Color.light_green)
             created_timestamp = ((int(data.get('id')) >> 22) + 1420070400000) / 1000
             created_date = datetime.utcfromtimestamp(created_timestamp).strftime('%Y-%m-%d %H:%M:%S UTC')
             wavy_message(f"Created At : {created_date}", Color.green, Color.light_green)
@@ -223,9 +207,6 @@ def edit_webhook_image():
         wavy_message(f"Error: {e}", Color.red, Color.red)
     input("\nPress Enter to continue...")
 
-# ----------------------
-# Token Functions
-# ----------------------
 def check_token(token):
     headers = {"Authorization": token}
     try:
@@ -235,7 +216,7 @@ def check_token(token):
         return False
 
 def generate_token():
-    chars = string.ascii_letters + string.digits + '-_'
+    chars = string.ascii_letters + string.digits + "-_"
     return f"{''.join(random.choices(chars, k=24))}.{''.join(random.choices(chars, k=6))}.{''.join(random.choices(chars, k=27))}"
 
 def token_generator():
@@ -244,9 +225,8 @@ def token_generator():
     except ValueError:
         wavy_message("Invalid input.", Color.red, Color.red)
         return
-
     wavy_message(f"Generating {count} tokens...", Color.cyan, Color.blue)
-
+    
     def generate_and_check():
         token = generate_token()
         valid = check_token(token)
@@ -266,13 +246,10 @@ def token_generator():
                 tokens = read_json(FILES["invalid_tokens"])
                 tokens.append(token)
                 write_json(FILES["invalid_tokens"], tokens)
-
+    
     gradient_print("Token generation complete.", start_color=Color.cyan, end_color=Color.blue)
     input("\nPress Enter to continue...")
 
-# ----------------------
-# Main Program
-# ----------------------
 def main():
     init()
     while True:
@@ -299,5 +276,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-elif __name__ == "__name__":
-    sys.exit(0)
